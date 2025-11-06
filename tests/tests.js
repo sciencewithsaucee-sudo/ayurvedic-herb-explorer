@@ -275,29 +275,33 @@ function closeAllModals(excludeId = null) {
 
 // Initialize modals after DOM content is loaded
 let openSuggestionModal, closeSuggestionModal, openRequestModal, closeRequestModal;
-document.addEventListener('DOMContentLoaded', () => {
-    const suggestion = setupModal('suggestionModal', 'suggestionForm', 'suggestionSuccessMessage', 'https://formspree.io/f/xzzjgkoe');
-    const request = setupModal('requestModal', 'requestForm', 'requestSuccessMessage', 'https://formspree.io/f/movkwpze');
-    openSuggestionModal = suggestion.openModal;
-    closeSuggestionModal = suggestion.closeModal;
-    openRequestModal = request.openModal;
-    closeRequestModal = request.closeModal;
+// *** THIS IS THE NEW FIX ***
+// We wrap this entire setup block in the same check as the one at the end.
+if (typeof window !== 'undefined' && window.location.pathname.indexOf('tests.html') === -1) {
+    document.addEventListener('DOMContentLoaded', () => {
+        const suggestion = setupModal('suggestionModal', 'suggestionForm', 'suggestionSuccessMessage', 'https://formspree.io/f/xzzjgkoe');
+        const request = setupModal('requestModal', 'requestForm', 'requestSuccessMessage', 'https://formspree.io/f/movkwpze');
+        openSuggestionModal = suggestion.openModal;
+        closeSuggestionModal = suggestion.closeModal;
+        openRequestModal = request.openModal;
+        closeRequestModal = request.closeModal;
 
-    // Add listeners for close buttons AFTER initializing modals
-    document.getElementById('suggestionModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeSuggestionModal);
-    document.getElementById('requestModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeRequestModal);
-    document.getElementById('compareModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeCompareModal);
-    document.getElementById('alertModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeAlertModal);
-    document.getElementById('herbDetailModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeHerbDetailModal);
-    
-    // Add backdrop click listener
-      document.addEventListener('click', (event) => {
-        if(event.target.classList.contains('modal-backdrop')) {
-           closeAllModals(); 
-        }
+        // Add listeners for close buttons AFTER initializing modals
+        document.getElementById('suggestionModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeSuggestionModal);
+        document.getElementById('requestModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeRequestModal);
+        document.getElementById('compareModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeCompareModal);
+        document.getElementById('alertModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeAlertModal);
+        document.getElementById('herbDetailModal')?.querySelector('.modal-close-btn')?.addEventListener('click', closeHerbDetailModal);
+        
+        // Add backdrop click listener
+          document.addEventListener('click', (event) => {
+            if(event.target.classList.contains('modal-backdrop')) {
+               closeAllModals(); 
+            }
+        });
+
     });
-
-});
+}
 
 
 function openAlertModal(message) {
@@ -615,7 +619,7 @@ async function fetchHerbData() {
     }
 }
 
-// *** THIS IS THE NEW, FIXED LINE ***
+// *** THIS IS THE ORIGINAL FIX (STILL NEEDED) ***
 // Only run the app automatically if we are NOT in the test environment
 if (typeof window !== 'undefined' && window.location.pathname.indexOf('tests.html') === -1) {
     document.addEventListener('DOMContentLoaded', fetchHerbData);
