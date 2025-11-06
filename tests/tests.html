@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayurvedic Herb Explorer - Test Suite</title>
+    <!-- We load the real app's CSS to make it look right -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <style>
         body { padding: 2rem; }
@@ -25,7 +26,11 @@
         It loads the real `app.js` but feeds it a small, predictable set of mock data to verify the filtering functions.
     </p>
 
-    <div id="allFiltersContent" style="display: none;">
+    <!-- 
+      This is a hidden, simplified mock of the app's HTML.
+      It now includes all elements that app.js might look for.
+    -->
+    <div class="filter-content" style="display: none;">
         <input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/>
         <input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/>
         <input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/>
@@ -38,14 +43,31 @@
         <input id="favoritesFilter" type="checkbox" />
     </div>
 
+    <!-- Main app elements -->
     <div id="herbGrid"></div>
     <div id="herbCountBox"></div>
+    
+    <!-- Missing elements that app.js needs -->
+    <div id="compareTray" style="display: none;">
+      <span id="compareCount"></span>
+    </div>
+    <div id="paginationControls" style="display: none;">
+        <button id="prevPageBtn"></button>
+        <span id="pageInfo"></span>
+        <button id="nextPageBtn"></button>
+    </div>
 
+    <!-- Test Results -->
     <hr style="margin: 2rem 0;">
     <h2>Test Results</h2>
     <button id="runTestsBtn" class="btn btn-primary">Run Tests</button>
     <ul id="testResultsList" class="test-results" style="margin-top: 1.5rem;"></ul>
 
+    <!-- 
+      IMPORTANT:
+      1. We load the REAL application script from the parent folder.
+      2. We load our NEW test script.
+    -->
     <script src="../assets/js/app.js"></script>
     <script src="tests.js"></script>
 
