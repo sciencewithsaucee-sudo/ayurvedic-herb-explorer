@@ -145,7 +145,7 @@ function syncCompareCheckboxes(herbName, isChecked) {
 function updateCompareTray() {
     const compareTray = document.getElementById('compareTray');
     const compareCount = document.getElementById('compareCount');
-    if (!compareTray || !compareCount) return;
+    if (!compareTray || !compareCount) return; // <-- FIX: Don't crash if elements don't exist
     const count = compareSelection.size;
     if (count > 0) {
         compareCount.textContent = `${count} herb${count > 1 ? 's' : ''} selected`;
@@ -540,7 +540,7 @@ function goToNextPage() {
 function initializeApp() {
     herbsPerPage = getHerbsPerPage();  
     renderHerbs();  
-    updateCompareTray();
+    updateCompareTray(); // This is now safe
 
     const searchInput = document.getElementById("searchInput");
     const filterControls = document.querySelectorAll('.filter-content input, .filter-content select, input[name="sortMobile"]');  
@@ -549,7 +549,11 @@ function initializeApp() {
     if (searchInput) {
         searchInput.addEventListener("input", debounce(() => { currentPage = 1; renderHerbs(); }, 300));
     }
-    filterControls.forEach(el => el.addEventListener("change", () => { currentPage = 1; renderHerbs(); }));
+    
+    // <-- FIX: Check if filterControls exist before iterating -->
+    if (filterControls) {
+        filterControls.forEach(el => el.addEventListener("change", () => { currentPage = 1; renderHerbs(); }));
+    }
 
     const sortSelect = document.getElementById('sortSelect');
     if (sortSelect) {
@@ -559,11 +563,16 @@ function initializeApp() {
             });
         });
     }
-     document.querySelectorAll('input[name="sortMobile"]').forEach(radio => {
-         radio.addEventListener('change', (e) => {
-             if (e.target.checked && sortSelect) { sortSelect.value = e.target.value; }
+    
+    const mobileSortRadios = document.querySelectorAll('input[name="sortMobile"]');
+    // <-- FIX: Check if mobileSortRadios exist -->
+    if (mobileSortRadios) {
+         document.querySelectorAll('input[name="sortMobile"]').forEach(radio => {
+             radio.addEventListener('change', (e) => {
+                 if (e.target.checked && sortSelect) { sortSelect.value = e.target.value; }
+             });
          });
-     });
+    }
 
     if (herbGrid) {
         herbGrid.addEventListener('click', (event) => {
