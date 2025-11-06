@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this software in your research, please cite it using the metadata below."
+title: "Ayurvedic Herb Explorer: Enabling Data-Driven Research in Dravyaguna (Ayurvedic Pharmacology)"
+type: software
+authors:
+  - family-names: "Varshney"
+    given-names: "Sparsh"
+    orcid: "https://orcid.org/0009-0004-7835-0673"
+    affiliation: "Amidha Ayurveda"
+    
+# --- IMPORTANT ---
+# After you archive this repository with Zenodo, 
+# replace YOUR_NEW_DOI with the DOI you receive.
+doi: 10.5281/zenodo.YOUR_NEW_DOI 
+
+version: "1.0.0"
+date-released: 2025-11-06
+license: "MIT"
+keywords:
+  - "Ayurveda"
+  - "Digital Humanities"
+  - "Herbal Database"
+  - "Ayurvedic Pharmacology"
+  - "Research Software"
+  - "JavaScript"
+repository-code: "https://github.com/sciencewithsaucee-sudo/ayurvedic-herb-explorer"
+
+# This section links this software to the data/other software it depends on or relates to.
+references:
+  - type: dataset
+    title: "🌿 Amidha Ayurveda Herb Database (Beta)"
+    authors:
+      - family-names: "Varshney"
+        given-names: "Sparsh"
+    doi: "10.5281/zenodo.17475352"
+    year: 2025
+    
+  - type: software
+    title: "ShlokaAI: The Smart Sanskrit Analysis Platform (Version 1.0.0)"
+    authors:
+      - family-names: "Varshney"
+        given-names: "S."
+    doi: "10.5281/zenodo.17506828"
+    year: 2025
+
+  - type: dataset
+    title: "Siddhanta Kosha: A Curated JSON Dataset of 162 Core Ayurvedic Principles (Version 1.0.0)"
+    authors:
+      - family-names: "Varshney"
+        given-names: "Sparsh"
+    doi: "10.5281/zenodo.17481343"
+    year: 2025
