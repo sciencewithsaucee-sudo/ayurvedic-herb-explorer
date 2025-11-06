@@ -502,7 +502,7 @@ function renderHerbs() {
         return;
   }
 
-  herbsPerPage = getHerbsPerPage();  
+  // herbsPerPage = getHerbsPerPage();  // <--- BUG WAS HERE (Removed)
 
   const filtered = allHerbs.filter(matchesFilters);
   const sortValue = getSortValue();  
@@ -569,7 +569,7 @@ function goToPrevPage() {
 }
 function goToNextPage() {
     if (!Array.isArray(allHerbs)) return;
-    herbsPerPage = getHerbsPerPage();  
+    // herbsPerPage = getHerbsPerPage();  // <--- BUG WAS HERE (Removed)
     const filteredCount = allHerbs.filter(matchesFilters).length;
     const totalPages = Math.ceil(filteredCount / herbsPerPage);
     if (currentPage < totalPages) {  
