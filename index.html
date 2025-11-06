@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- App Title -->
+  <title>Ayurvedic Herb Explorer</title>
+
+  <!-- Modern Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Link to your new CSS file -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h2>The Open Ayurvedic Herb Database</h2>
+    <h3>Explore 700+ herbs categorized by Rasa, Guna, Virya, Vipaka, Dosha & Prabhava.</h3>
+    <p>A continuously evolving dataset built for research, education, and digital Ayurveda innovation.</p>
+    <div class="hero-buttons">
+      <a href="#database-start" class="hero-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+        <span>Explore Herbs</span>
+      </a>
+      <a href="https://github.com/sciencewithsaucee-sudo/herb-database" target="_blank" rel="noopener noreferrer" class="hero-button secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span>View Dataset (GitHub)</span>
+      </a>
+    </div>
+    <div class="hero-citation">
+      Citation: Amidha Ayurveda Herb Database (Beta), 2025. <br>
+      <a href="https://doi.org/10.5281/zenodo.17475351" style="display: inline-block; margin-top: 0.5rem;" target="_blank" rel="noopener noreferrer"><img src="https://zenodo.org/badge/1085515020.svg" alt="DOI"></a>
+      <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener" title="View License on MIT">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Main Container -->
+<main class="main-container" id="database-start">
+  
+  <div class="top-controls" id="topControls">
+    <button class="btn" id="mobileFilterBtn" onclick="openMobileFilter()" aria-label="Open Filters">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 2.427L6.073 8.37a.5.5 0 0 1 .177.373v5.15l2.5-.833V8.743a.5.5 0 0 1 .177-.373L12.5 3.927V2H2.5v1.927z"/>
+      </svg>
+      <span>Filters & Sort</span> 
+    </button>
+    
+    <div class="search-box">
+      <input id="searchInput" placeholder="Search for a herb..." type="text" />
+    </div>
+  
+    <button class="btn" id="requestHerbBtn" onclick="openRequestModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+      </svg>
+      <span>Request a Herb</span>
+    </button>
+  </div>
+    
+  <!-- Desktop Layout Wrapper -->
+  <div class="database-layout">
+
+    <!-- FILTER SIDEBAR / MOBILE MODAL -->
+    <aside class="filter-sidebar" id="filterSidebar">
+      
+      <div class="mobile-filter-header">
+        <h3>Filters & Sort</h3>
+        <button type="button" class="modal-close-btn" onclick="closeMobileFilter()" aria-label="Close Filters">×</button>
+      </div>
+        
+      <div class="filter-content" id="allFiltersContent">
+        <div class="filter-panel-label">Advanced Filter Panel (Research Mode)</div>
+        <div class="filter-content-inner">
+          
+          <div class="filter-top-bar">
+            <div class="sort-container">
+              <label for="sortSelect">Sort by:</label>
+              <select id="sortSelect">
+                <option value="default">Default</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+              </select>
+              <div class="sort-options">
+                <label><input type="radio" name="sortMobile" value="default" checked> Default</label>
+                <label><input type="radio" name="sortMobile" value="name-asc"> Name (A-Z)</label>
+                <label><input type="radio" name="sortMobile" value="name-desc"> Name (Z-A)</label>
+              </div>
+            </div>
+            
+            <div class="favorites-filter-wrapper">
+              <span>Show Favorites</span>
+              <label class="favorites-filter-toggle">
+                <input id="favoritesFilter" type="checkbox" />
+                <span class="favorites-filter-slider"></span>
+              </label>
+            </div>
+          </div>
+            
+          <div class="filter-content-body">
+            <div>
+              <h4>Properties</h4>
+              <div class="filter-grid">
+                <div class="filter-group"> <label>Pacify Dosha</label> 
+                  <div><input class="pacify-filter" type="checkbox" value="Vata" id="f_pacify_vata"/><label for="f_pacify_vata">Vata</label></div>
+                  <div><input class="pacify-filter" type="checkbox" value="Pitta" id="f_pacify_pitta"/><label for="f_pacify_pitta">Pitta</label></div>
+                  <div><input class="pacify-filter" type="checkbox" value="Kapha" id="f_pacify_kapha"/><label for="f_pacify_kapha">Kapha</label></div> 
+                </div>
+                <div class="filter-group"> <label>Aggravate Dosha</label> 
+                  <div><input class="aggravate-filter" type="checkbox" value="Vata" id="f_agg_vata"/><label for="f_agg_vata">Vata</label></div>
+                  <div><input class="aggravate-filter" type="checkbox" value="Pitta" id="f_agg_pitta"/><label for="f_agg_pitta">Pitta</label></div>
+                  <div><input class="aggravate-filter" type="checkbox" value="Kapha" id="f_agg_kapha"/><label for="f_agg_kapha">Kapha</label></div> 
+                </div>
+                <div class="filter-group full-width"> <label>Balance Tridosha</label> 
+                  <div><input class="tridosha-filter" type="checkbox" value="Tridosha" id="f_tridosha"/><label for="f_tridosha">Balances All 3 Doshas</label></div> 
+                </div>
+                <div class="filter-group"> <label>Rasa</label> 
+                  <div><input class="rasa-filter" type="checkbox" value="Madhura" id="f_rasa_madhura"/><label for="f_rasa_madhura">Madhura</label></div>
+                  <div><input class="rasa-filter" type="checkbox" value="Amla" id="f_rasa_amla"/><label for="f_rasa_amla">Amla</label></div>
+                  <div><input class="rasa-filter" type="checkbox" value="Lavana" id="f_rasa_lavana"/><label for="f_rasa_lavana">Lavana</label></div>
+                  <div><input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/><label for="f_rasa_tikta">Tikta</label></div>
+                  <div><input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/><label for="f_rasa_katu">Katu</label></div>
+                  <div><input class="rasa-filter" type="checkbox" value="Kashaya" id="f_rasa_kashaya"/><label for="f_rasa_kashaya">Kashaya</label></div> 
+                </div>
+                <div class="filter-group"> <label>Guna</label> 
+                  <div><input class="guna-filter" type="checkbox" value="Laghu" id="f_guna_laghu"/><label for="f_guna_laghu">Laghu</label></div>
+                  <div><input class="guna-filter" type="checkbox" value="Ruksha" id="f_guna_ruksha"/><label for="f_guna_ruksha">Ruksha</label></div>
+                  <div><input class="guna-filter" type="checkbox" value="Snigdha" id="f_guna_snigdha"/><label for="f_guna_snigdha">Snigdha</label></div>
+                  <div><input class="guna-filter" type="checkbox" value="Guru" id="f_guna_guru"/><label for="f_guna_guru">Guru</label></div> 
+                </div>
+                <div class="filter-group"> <label>Virya</label> 
+                  <div><input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/><label for="f_virya_ushna">Ushna</label></div>
+                  <div><input class="virya-filter" type="checkbox" value="Sheeta" id="f_virya_sheeta"/><label for="f_virya_sheeta">Sheeta</label></div> 
+                </div>
+                <div class="filter-group"> <label>Vipaka</label> 
+                  <div><input class="vipaka-filter" type="checkbox" value="Madhura" id="f_vipaka_madhura"/><label for="f_vipaka_madhura">Madhura</label></div>
+                  <div><input class="vipaka-filter" type="checkbox" value="Amla" id="f_vipaka_amla"/><label for="f_vipaka_amla">Amla</label></div>
+                  <div><input class="vipaka-filter" type="checkbox" value="Katu" id="f_vipaka_katu"/><label for="f_vipaka_katu">Katu</label></div> 
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4>Prabhav</h4>
+              <div class="filter-grid">
+                <div class="filter-group"> 
+                  <div><input class="prabhav-filter" type="checkbox" value="Rasayan" id="f_prabhav_rasayan"/><label for="f_prabhav_rasayan">Rasayan</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Krimighna" id="f_prabhav_krimighna"/><label for="f_prabhav_krimighna">Krimighna</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Medhya" id="f_prabhav_medhya"/><label for="f_prabhav_medhya">Medhya</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Deepana" id="f_prabhav_deepana"/><label for="f_prabhav_deepana">Deepana</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Varnya" id="f_prabhav_varnya"/><label for="f_prabhav_varnya">Varnya</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Balya" id="f_prabhav_balya"/><label for="f_prabhav_balya">Balya</label></div> 
+                </div>
+                <div class="filter-group"> 
+                  <div><input class="prabhav-filter" type="checkbox" value="Jwaraghna" id="f_prabhav_jwaraghna"/><label for="f_prabhav_jwaraghna">Jwaraghna</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Chakshushya" id="f_prabhav_chakshushya"/><label for="f_prabhav_chakshushya">Chakshushya</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Stanyashodhana" id="f_prabhav_stanyashodhana"/><label for="f_prabhav_stanyashodhana">Stanyashodhana</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Shothahara" id="f_prabhav_shothahara"/><label for="f_prabhav_shothahara">Shothahara</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Virechana" id="f_prabhav_virechana"/><label for="f_prabhav_virechana">Virechana</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Hridaya" id="f_prabhav_hridaya"/><label for="f_prabhav_hridaya">Hridaya</label></div> 
+                </div>
+                <div class="filter-group"> 
+                  <div><input class="prabhav-filter" type="checkbox" value="Shukrala" id="f_prabhav_shukrala"/><label for="f_prabhav_shukrala">Shukrala</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Kandughna" id="f_prabhav_kandughna"/><label for="f_prabhav_kandughna">Kandughna</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Raktashodhak" id="f_prabhav_raktashodhak"/><label for="f_prabhav_raktashodhak">Raktashodhak</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Triptighna" id="f_prabhav_triptighna"/><label for="f_prabhav_triptighna">Triptighna</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Kasahara" id="f_prabhav_kasahara"/><label for="f_prabhav_kasahara">Kasahara</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Shoolaghna" id="f_prabhav_shoolaghna"/><label for="f_prabhav_shoolaghna">Shoolaghna</label></div> 
+                </div>
+                <div class="filter-group"> 
+                  <div><input class="prabhav-filter" type="checkbox" value="Netrya" id="f_prabhav_netrya"/><label for="f_prabhav_netrya">Netrya</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Mutrala" id="f_prabhav_mutrala"/><label for="f_prabhav_mutrala">Mutrala</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Pachana" id="f_prabhav_pachana"/><label for="f_prabhav_pachana">Pachana</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Lekhana" id="f_prabhav_lekhana"/><label for="f_prabhav_lekhana">Lekhana</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Grahi" id="f_prabhav_grahi"/><label for="f_prabhav_grahi">Grahi</label></div>
+                  <div><input class="prabhav-filter" type="checkbox" value="Vrishya" id="f_prabhav_vrishya"/><label for="f_prabhav_vrishya">Vrishya</label></div> 
+                </div>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      </div>
+      <div class="filter-content-footer">
+        <button class="btn btn-danger" style="width: 100%;" onclick="clearAllFilters()">Clear All Filters</button>
+      </div>
+        
+      <div class="mobile-filter-footer">
+        <button class="btn btn-danger" onclick="clearAllFilters()">Clear All</button>
+        <button class="btn btn-primary" id="showResultsBtn" onclick="closeMobileFilter()">Show Results</button>
+      </div>
+    </aside>
+      
+    <!-- Main Content Wrapper -->
+    <div class="content-wrapper">
+      <div id="herbCountBox">Loading Herb Database...</div>
+      <div class="herb-grid" id="herbGrid"></div>
+      <div class="pagination-controls" id="paginationControls">
+        <button class="btn btn-pagination" id="prevPageBtn" onclick="goToPrevPage()">Previous</button>
+        <span id="pageInfo">Page 1 of 1</span>
+        <button class="btn btn-pagination" id="nextPageBtn" onclick="goToNextPage()">Next</button>
+      </div>
+    </div>
+
+  </div>
+    
+  <!-- Content Sections Below Database -->
+  <section class="content-section">
+    <div class="content-section-inner">
+      <h3>About the Herb Data</h3>
+      <p>This database compiles classical Ayurvedic textual data, meticulously verified from multiple authoritative sources including Charaka Samhita, Sushruta Samhita, Bhavaprakasha Nighantu, and supplemented by modern reference works such as the Ayurvedic Pharmacopoeia of India (API).</p>
+      <p>🔗 Each dataset entry includes the following parameters where available:</p>
+      <ul>
+        <li>Rasa (Taste)</li>
+        <li>Guna (Qualities)</li>
+        <li>Virya (Potency - Heating/Cooling)</li>
+        <li>Vipaka (Post-Digestive Effect)</li>
+        <li>Prabhava (Specific Action)</li>
+        <li>Dosha Karma (Effect on Vata, Pitta, Kapha)</li>
+        <li>Botanical Name</li>
+      </ul>
+      <p>🧠 <strong>Purpose:</strong> To create a standardized, machine-readable dataset of Ayurvedic herb properties, making this ancient knowledge more accessible for modern research, education, and digital innovation.</p>
+      <p style="font-size: 0.9rem; color: var(--color-text-light);">Last Updated: October 2025 (Beta Release)</p>
+    </div>
+  </section>
+    
+  <section class="content-section">
+    <div class="content-section-inner">
+      <div class="content-grid">
+        <div>
+          <h3>Data Insights</h3>
+          <div class="stats-box">
+            <h4>📊 Database Stats (as of Oct 2025)</h4>
+            <ul>
+              <li><strong>Total Herbs:</strong> <span id="stats-total-herbs">Loading...</span></li>
+              <li><strong>Verified References:</strong> <span>150+</span></li>
+              <li><strong>Average Data Completeness:</strong> <span>92%</span></li>
+              <li><strong>Language:</strong> <span>English (with Sanskrit terms)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h3>Open Data for Researchers</h3>
+          <p>Access the complete dataset in JSON format via our GitHub Repository. The data is freely available for educational, academic, and non-commercial use.</p>
+          <p>We welcome contributions, corrections, and additions from the research community.</p>
+          <a href="https://github.com/sciencewithsaucee-sudo/herb-database" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: 1rem;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+            <span>View on GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-section-inner">
+      <h3>Sample Data Preview (JSON)</h3>
+      <pre style="background: var(--color-bg-light); border: 1px solid var(--color-border); padding: 1rem; border-radius: var(--radius-md); font-size: 0.85em; overflow-x: auto; color: var(--color-text-body);">
+<code>
+[
+  {
+    "name": "Ashwagandha",
+    "link": "/p/ashwagandha.html",
+    "preview": "Ashwagandha (Withania somnifera) is a powerful adaptogen. It reduces stress, increases strength, and supports reproductive and nervous systems.",
+    "pacify": ["Vata", "Kapha"],
+    "aggravate": ["Pitta"],
+    "tridosha": false,
+    "rasa": ["Tikta", "Kashaya"],
+    "guna": ["Guru", "Snigdha"],
+    "virya": "Ushna",
+    "vipaka": "Madhura",
+    "prabhav": ["Balya", "Medhya", "Vrishya", "rasayan"]
+  }
+]
+</code>
+      </pre>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="content-section-inner">
+      <h3>License & Citation</h3>
+      <p>This dataset is released under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.</p>
+      <p>You are free to share and adapt the data for educational, research, and non-commercial purposes.</p>
+      <p><strong>📘 How to Cite this Dataset:</strong><br> Varshney, Sparsh (2025).🌿 Amidha Ayurveda Herb Database (Beta). Zenodo. <a href="https://doi.org/10.5281/zenodo.17475352" target="_blank" rel="noopener noreferrer">https://doi.org/10.5281/zenodo.17475352</a></p>
+    </div>
+  </section>
+
+  <!-- Modals: Suggestion, Request, Compare, Herb Detail -->
+  <div id="suggestionModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-herb-title">Suggest an Edit</h3>
+        <button type="button" class="modal-close-btn" onclick="closeSuggestionModal()" aria-label="Close">×</button>
+      </div>
+      <div id="suggestionForm-content"> 
+        <form id="suggestionForm" action="https://formspree.io/f/xzzjgkoe" method="POST">
+          <input type="hidden" id="modal-herb-name" name="herb_name" value="">
+          <label for="suggestion-user-name">Your Name (Optional)</label>
+          <input type="text" id="suggestion-user-name" name="user_name" placeholder="Your Name">
+          <label for="suggestion-text">Suggestion*</label>
+          <textarea id="suggestion-text" name="suggestion" placeholder="Describe your suggested edit..." required></textarea>
+          <div class="modal-buttons">
+            <button type="button" class="btn btn-cancel" onclick="closeSuggestionModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Suggestion</button>
+          </div>
+        </form>
+      </div>
+      <div id="suggestionSuccessMessage" style="display:none; text-align:center;">
+        <h4>Thank you for your suggestion!</h4>
+        <p>Your feedback helps improve the database.</p>
+        <div class="modal-buttons" style="justify-content: center; margin-top: 1rem;">
+          <button type="button" class="btn btn-primary" onclick="closeSuggestionModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div id="requestModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Request a Herb</h3>
+        <button type="button" class="modal-close-btn" onclick="closeRequestModal()" aria-label="Close">×</button>
+      </div>
+      <div id="requestForm-content"> 
+        <form id="requestForm" action="https://formspree.io/f/movkwpze" method="POST">
+          <label for="request-user-name">Your Name (Optional)</label>
+          <input type="text" id="request-user-name" name="user_name" placeholder="Your Name">
+          <label for="request-herb-name">Herb Name*</label>
+          <input type="text" id="request-herb-name" name="requested_herb" placeholder="Name of the herb you want to see" required>
+          <div class="modal-buttons">
+            <button type="button" class="btn btn-cancel" onclick="closeRequestModal()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit Request</button>
+          </div>
+        </form>
+      </div>
+      <div id="requestSuccessMessage" style="display:none; text-align:center;">
+        <h4>Thank you for your request!</h4>
+        <p>We will look into adding this herb to the database.</p>
+        <div class="modal-buttons" style="justify-content: center; margin-top: 1rem;">
+          <button type="button" class="btn btn-primary" onclick="closeRequestModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  <div id="compareModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Herb Comparison</h3>
+        <button type="button" class="modal-close-btn" onclick="closeCompareModal()" aria-label="Close">×</button>
+      </div>
+      <div id="compareTableContainer" style="overflow-x: auto;">
+        <table id="compareTable"></table>
+      </div>
+      <div class="modal-buttons" style="margin-top: 20px;">
+        <button type="button" class="btn btn-danger" onclick="clearComparisonSelection(); closeCompareModal()">Clear All & Close</button>
+        <button type="button" class="btn btn-cancel" onclick="closeCompareModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM ALERT MODAL -->
+  <div id="alertModal" class="modal-backdrop">
+    <div class="modal-content alert-modal-content">
+      <div class="modal-header">
+        <h3></h3> 
+        <button type="button" class="modal-close-btn" onclick="closeAlertModal()" aria-label="Close">×</button>
+      </div>
+      <div class="alert-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+      </div>
+      <p id="alertModalMessage">This is an alert message.</p>
+      <div class="modal-buttons">
+        <button type="button" class="btn btn-primary" onclick="closeAlertModal()">OK</button>
+      </div>
+    </div>
+  </div>
+    
+  <!-- Herb Detail Modal -->
+  <div id="herbDetailModal" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="herbModalTitle">Herb Details</h3>
+        <button type="button" class="modal-close-btn" onclick="closeHerbDetailModal()" aria-label="Close">×</button>
+      </div>
+      <p id="herbModalPreview" class="herb-modal-preview"></p>
+      <div id="herbModalProperties" class="herb-properties">
+        <!-- Properties will be injected here -->
+      </div>
+      <div id="herbModalActions" class="herb-actions">
+        <!-- Buttons (Explore, Suggest, Compare) will be injected here -->
+      </div>
+    </div>
+  </div>
+
+</main> <!-- End Main Container -->
+
+<div id="compareTray">
+  <span id="compareCount">0 herbs selected for comparison</span>
+  <div id="compareTray-actions">
+    <button class="btn btn-secondary" onclick="openCompareModal()">Compare</button> 
+    <button class="btn btn-danger" onclick="clearComparisonSelection()">Clear</button>
+  </div>
+</div>
+
+<!-- 3. ADDED LINK TO YOUR NEW JAVASCRIPT FILE -->
+<script src="assets/js/app.js"></script>
+
+</body>
+</html>
