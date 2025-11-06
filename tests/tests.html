@@ -57,6 +57,29 @@
         <button id="nextPageBtn"></button>
     </div>
 
+    <!-- 
+      SKELETON MODALS
+      These are needed so app.js doesn't crash when trying to find them.
+    -->
+    <div id="suggestionModal" class="modal-backdrop"></div>
+    <div id="requestModal" class="modal-backdrop"></div>
+    <div id="compareModal" class="modal-backdrop"></div>
+    <div id="alertModal" class="modal-backdrop"></div>
+    
+    <!-- This is the one that was causing the freeze -->
+    <div id="herbDetailModal" class="modal-backdrop">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="herbModalTitle"></h3>
+          <button type="button" class="modal-close-btn" onclick="closeHerbDetailModal()" aria-label="Close">×</button>
+        </div>
+        <p id="herbModalPreview"></p>
+        <div id="herbModalProperties"></div>
+        <div id="herbModalActions"></div>
+      </div>
+    </div>
+
+
     <!-- Test Results -->
     <hr style="margin: 2rem 0;">
     <h2>Test Results</h2>
