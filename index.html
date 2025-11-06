@@ -403,8 +403,8 @@
         <!-- Buttons (Explore, Suggest, Compare) will be injected here -->
       </div>
     </div>
-  </div>
-
+<!-- ... All your HTML... -->
+<!-- ... -->
 </main> <!-- End Main Container -->
 
 <div id="compareTray">
@@ -415,8 +415,21 @@
   </div>
 </div>
 
-<!-- 3. ADDED LINK TO YOUR NEW JAVASCRIPT FILE -->
+<!-- 
+  NEW SCRIPT BLOCK
+  This loads the library, then tells it to set up the modals and fetch the data.
+  This code ONLY runs on this page.
+-->
 <script src="assets/js/app.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set up all the modals and click listeners
+    setupAppModals();
+    
+    // 2. Fetch the real data and initialize the app
+    fetchHerbData();
+  });
+</script>
 
 </body>
 </html>
