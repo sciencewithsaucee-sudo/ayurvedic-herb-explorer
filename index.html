@@ -47,7 +47,8 @@
 <main class="main-container" id="database-start">
   
   <div class="top-controls" id="topControls">
-    <button class="btn" id="mobileFilterBtn" onclick="openMobileFilter()" aria-label="Open Filters">
+    <!-- REMOVED onclick="" from button -->
+    <button class="btn" id="mobileFilterBtn" aria-label="Open Filters">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 2.427L6.073 8.37a.5.5 0 0 1 .177.373v5.15l2.5-.833V8.743a.5.5 0 0 1 .177-.373L12.5 3.927V2H2.5v1.927z"/>
       </svg>
@@ -58,7 +59,8 @@
       <input id="searchInput" placeholder="Search for a herb..." type="text" />
     </div>
   
-    <button class="btn" id="requestHerbBtn" onclick="openRequestModal()">
+    <!-- REMOVED onclick="" from button -->
+    <button class="btn" id="requestHerbBtn">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -75,7 +77,8 @@
       
       <div class="mobile-filter-header">
         <h3>Filters & Sort</h3>
-        <button type="button" class="modal-close-btn" onclick="closeMobileFilter()" aria-label="Close Filters">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" id="closeMobileFilterBtn" aria-label="Close Filters">×</button>
       </div>
         
       <div class="filter-content" id="allFiltersContent">
@@ -191,12 +194,15 @@
         </div>
       </div>
       <div class="filter-content-footer">
-        <button class="btn btn-danger" style="width: 100%;" onclick="clearAllFilters()">Clear All Filters</button>
+        <!-- REMOVED onclick="" from button -->
+        <button class="btn btn-danger" style="width: 100%;" id="clearFiltersDesktopBtn">Clear All Filters</button>
       </div>
         
       <div class="mobile-filter-footer">
-        <button class="btn btn-danger" onclick="clearAllFilters()">Clear All</button>
-        <button class="btn btn-primary" id="showResultsBtn" onclick="closeMobileFilter()">Show Results</button>
+        <!-- REMOVED onclick="" from button -->
+        <button class="btn btn-danger" id="clearFiltersMobileBtn">Clear All</button>
+        <!-- REMOVED onclick="" from button -->
+        <button class="btn btn-primary" id="showResultsBtn">Show Results</button>
       </div>
     </aside>
       
@@ -205,9 +211,11 @@
       <div id="herbCountBox">Loading Herb Database...</div>
       <div class="herb-grid" id="herbGrid"></div>
       <div class="pagination-controls" id="paginationControls">
-        <button class="btn btn-pagination" id="prevPageBtn" onclick="goToPrevPage()">Previous</button>
+        <!-- REMOVED onclick="" from button -->
+        <button class="btn btn-pagination" id="prevPageBtn">Previous</button>
         <span id="pageInfo">Page 1 of 1</span>
-        <button class="btn btn-pagination" id="nextPageBtn" onclick="goToNextPage()">Next</button>
+        <!-- REMOVED onclick="" from button -->
+        <button class="btn btn-pagination" id="nextPageBtn">Next</button>
       </div>
     </div>
 
@@ -300,7 +308,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="modal-herb-title">Suggest an Edit</h3>
-        <button type="button" class="modal-close-btn" onclick="closeSuggestionModal()" aria-label="Close">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" aria-label="Close">×</button>
       </div>
       <div id="suggestionForm-content"> 
         <form id="suggestionForm" action="https://formspree.io/f/xzzjgkoe" method="POST">
@@ -310,7 +319,8 @@
           <label for="suggestion-text">Suggestion*</label>
           <textarea id="suggestion-text" name="suggestion" placeholder="Describe your suggested edit..." required></textarea>
           <div class="modal-buttons">
-            <button type="button" class="btn btn-cancel" onclick="closeSuggestionModal()">Cancel</button>
+            <!-- REMOVED onclick="" from button -->
+            <button type="button" class="btn btn-cancel" id="cancelSuggestionBtn">Cancel</button>
             <button type="submit" class="btn btn-primary">Submit Suggestion</button>
           </div>
         </form>
@@ -319,7 +329,8 @@
         <h4>Thank you for your suggestion!</h4>
         <p>Your feedback helps improve the database.</p>
         <div class="modal-buttons" style="justify-content: center; margin-top: 1rem;">
-          <button type="button" class="btn btn-primary" onclick="closeSuggestionModal()">Close</button>
+          <!-- REMOVED onclick="" from button -->
+          <button type="button" class="btn btn-primary" id="closeSuggestionSuccessBtn">Close</button>
         </div>
       </div>
     </div>
@@ -329,7 +340,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3>Request a Herb</h3>
-        <button type="button" class="modal-close-btn" onclick="closeRequestModal()" aria-label="Close">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" aria-label="Close">×</button>
       </div>
       <div id="requestForm-content"> 
         <form id="requestForm" action="https://formspree.io/f/movkwpze" method="POST">
@@ -338,7 +350,8 @@
           <label for="request-herb-name">Herb Name*</label>
           <input type="text" id="request-herb-name" name="requested_herb" placeholder="Name of the herb you want to see" required>
           <div class="modal-buttons">
-            <button type="button" class="btn btn-cancel" onclick="closeRequestModal()">Cancel</button>
+            <!-- REMOVED onclick="" from button -->
+            <button type="button" class="btn btn-cancel" id="cancelRequestBtn">Cancel</button>
             <button type="submit" class="btn btn-primary">Submit Request</button>
           </div>
         </form>
@@ -347,7 +360,8 @@
         <h4>Thank you for your request!</h4>
         <p>We will look into adding this herb to the database.</p>
         <div class="modal-buttons" style="justify-content: center; margin-top: 1rem;">
-          <button type="button" class="btn btn-primary" onclick="closeRequestModal()">Close</button>
+          <!-- REMOVED onclick="" from button -->
+          <button type="button" class="btn btn-primary" id="closeRequestSuccessBtn">Close</button>
         </div>
       </div>
     </div>
@@ -357,14 +371,17 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3>Herb Comparison</h3>
-        <button type="button" class="modal-close-btn" onclick="closeCompareModal()" aria-label="Close">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" aria-label="Close">×</button>
       </div>
       <div id="compareTableContainer" style="overflow-x: auto;">
         <table id="compareTable"></table>
       </div>
       <div class="modal-buttons" style="margin-top: 20px;">
-        <button type="button" class="btn btn-danger" onclick="clearComparisonSelection(); closeCompareModal()">Clear All & Close</button>
-        <button type="button" class="btn btn-cancel" onclick="closeCompareModal()">Close</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="btn btn-danger" id="clearCompareBtn">Clear All & Close</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="btn btn-cancel" id="closeCompareBtn">Close</button>
       </div>
     </div>
   </div>
@@ -374,7 +391,8 @@
     <div class="modal-content alert-modal-content">
       <div class="modal-header">
         <h3></h3> 
-        <button type="button" class="modal-close-btn" onclick="closeAlertModal()" aria-label="Close">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" aria-label="Close">×</button>
       </div>
       <div class="alert-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -383,7 +401,8 @@
       </div>
       <p id="alertModalMessage">This is an alert message.</p>
       <div class="modal-buttons">
-        <button type="button" class="btn btn-primary" onclick="closeAlertModal()">OK</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="btn btn-primary" id="alertOkBtn">OK</button>
       </div>
     </div>
   </div>
@@ -393,7 +412,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 id="herbModalTitle">Herb Details</h3>
-        <button type="button" class="modal-close-btn" onclick="closeHerbDetailModal()" aria-label="Close">×</button>
+        <!-- REMOVED onclick="" from button -->
+        <button type="button" class="modal-close-btn" aria-label="Close">×</button>
       </div>
       <p id="herbModalPreview" class="herb-modal-preview"></p>
       <div id="herbModalProperties" class="herb-properties">
@@ -403,33 +423,28 @@
         <!-- Buttons (Explore, Suggest, Compare) will be injected here -->
       </div>
     </div>
-<!-- ... All your HTML... -->
-<!-- ... -->
+  </div>
+
 </main> <!-- End Main Container -->
 
 <div id="compareTray">
   <span id="compareCount">0 herbs selected for comparison</span>
   <div id="compareTray-actions">
-    <button class="btn btn-secondary" onclick="openCompareModal()">Compare</button> 
-    <button class="btn btn-danger" onclick="clearComparisonSelection()">Clear</button>
+    <!-- REMOVED onclick="" from button -->
+    <button class="btn btn-secondary" id="compareTrayBtn">Compare</button> 
+    <!-- REMOVED onclick="" from button -->
+    <button class="btn btn-danger" id="compareTrayClearBtn">Clear</button>
   </div>
 </div>
 
 <!-- 
-  NEW SCRIPT BLOCK
-  This loads the library, then tells it to set up the modals and fetch the data.
-  This code ONLY runs on this page.
+  UPDATED SCRIPT BLOCK
+  - app.js is the library
+  - main.js is the entry-point that runs the app
+  - No more inline scripts!
 -->
 <script src="assets/js/app.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // 1. Set up all the modals and click listeners
-    setupAppModals();
-    
-    // 2. Fetch the real data and initialize the app
-    fetchHerbData();
-  });
-</script>
+<script src="assets/js/main.js"></script>
 
 </body>
 </html>
