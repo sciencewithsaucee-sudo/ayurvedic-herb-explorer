@@ -41,11 +41,12 @@
             <option value="default"></option>
         </select>
         <input id="favoritesFilter" type="checkbox" />
+        <input name="sortMobile" type="radio" value="default" />
     </div>
 
     <!-- Main app elements -->
     <div id="herbGrid"></div>
-    <div id="herbCountBox"></div>
+    <div id="herbCountBox">Loading...</div>
     
     <!-- Missing elements that app.js needs -->
     <div id="compareTray" style="display: none;">
@@ -56,6 +57,9 @@
         <span id="pageInfo"></span>
         <button id="nextPageBtn"></button>
     </div>
+    <button id="showResultsBtn"></button>
+    <button id="mobileFilterBtn"></button>
+    <span id="stats-total-herbs"></span>
 
     <!-- 
       SKELETON MODALS
@@ -88,8 +92,8 @@
 
     <!-- 
       IMPORTANT:
-      1. We load the REAL application script from the parent folder.
-      2. We load our NEW test script.
+      1. We load the REAL application script (it will do nothing).
+      2. We load our NEW test script (it will control everything).
     -->
     <script src="../assets/js/app.js"></script>
     <script src="tests.js"></script>
