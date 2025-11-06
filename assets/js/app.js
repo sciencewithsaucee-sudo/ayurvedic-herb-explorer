@@ -1,4 +1,3 @@
-
 // --- Data URL ---
 const HERB_DATA_URL = 'https://raw.githubusercontent.com/sciencewithsaucee-sudo/herb-database/refs/heads/main/herb.json';
 
