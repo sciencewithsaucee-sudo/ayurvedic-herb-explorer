@@ -4,7 +4,6 @@ const HERB_DATA_URL = 'https://raw.githubusercontent.com/sciencewithsaucee-sudo/
 // --- Whitelist for Explore Links ---
 const finishedHerbLinks = new Set([
   "https://www.amidhaayurveda.com/p/tulsi.html",
-  "https://www.amidhaayurveda.com/p/tulsi.html",
   "https://www.amidhaayurveda.com/p/amla.html",
   "https://www.amidhaayurveda.com/p/ashwagandha.html",
   "https://www.amidhaayurveda.com/p/giloy.html",
@@ -43,8 +42,7 @@ const finishedHerbLinks = new Set([
 // --- Global State ---
 let allHerbs = [];
 let currentPage = 1;
-// EDITED: Default herbs per page
-let herbsPerPage = 20; 
+let herbsPerPage = 20; // Default
 let favorites = new Set(JSON.parse(localStorage.getItem('favoriteHerbs') || '[]'));
 let compareSelection = new Set();
 const MAX_COMPARE_HERBS = 3;
@@ -58,10 +56,13 @@ function debounce(func, delay = 300) {
   };
 }
 
-// EDITED: Function to get herbs per page based on screen width
 function getHerbsPerPage() {
-    return window.innerWidth < 769 ? 10 : 20; // 10 on mobile, 20 on desktop
+  if (typeof window !== 'undefined') {
+      return window.innerWidth < 769 ? 10 : 20; // 10 on mobile, 20 on desktop
+  }
+  return 20; // Default
 }
+
 
 // --- FILTER & SORT ACTIONS ---
 function clearAllFilters() {
@@ -83,11 +84,13 @@ function clearAllFilters() {
 
 // --- FAVORITES ---
 function saveFavorites() {
-  localStorage.setItem('favoriteHerbs', JSON.stringify([...favorites]));
+  if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('favoriteHerbs', JSON.stringify([...favorites]));
+  }
 }
 
 function toggleFavorite(herbName, element) {
-  event.stopPropagation(); // Prevent modal open from fav click
+  if (event) event.stopPropagation(); // Prevent modal open from fav click
   if (!element) return;
   const btn = element.closest('.fav-btn');
   const isFavorite = favorites.has(herbName);
@@ -115,16 +118,16 @@ function toggleFavorite(herbName, element) {
 
 // --- COMPARISON ---
 function toggleCompare(herbName, checkboxElement) {
-    event.stopPropagation(); // Prevent modal open from compare click
+    if (event) event.stopPropagation(); // Prevent modal open from compare click
     if (!checkboxElement) return;
-    const isChecked = checkboxElement.checked; 
+    const isChecked = checkboxElement.checked;  
 
-    if (!isChecked) { 
+    if (!isChecked) {  
         compareSelection.delete(herbName);
-    } else { 
+    } else {  
         if (compareSelection.size >= MAX_COMPARE_HERBS) {
             openAlertModal(`You can compare up to ${MAX_COMPARE_HERBS} herbs.`);
-            checkboxElement.checked = false; 
+            checkboxElement.checked = false;  
             return;
         }
         compareSelection.add(herbName);
@@ -144,7 +147,7 @@ function syncCompareCheckboxes(herbName, isChecked) {
 function updateCompareTray() {
     const compareTray = document.getElementById('compareTray');
     const compareCount = document.getElementById('compareCount');
-    if (!compareTray || !compareCount) return;
+    if (!compareTray || !compareCount) return; // SAFE CHECK
     const count = compareSelection.size;
     if (count > 0) {
         compareCount.textContent = `${count} herb${count > 1 ? 's' : ''} selected`;
@@ -153,7 +156,7 @@ function updateCompareTray() {
 }
 
 function openCompareModal() {
-    closeAllModals('compareModal'); // Close others first
+    closeAllModals('compareModal');
     const compareModal = document.getElementById('compareModal');
     const compareTable = document.getElementById('compareTable');
     if (!compareModal || !compareTable) return;
@@ -161,7 +164,7 @@ function openCompareModal() {
     const herbsToCompare = allHerbs.filter(h => h && compareSelection.has(h.name));
     if (herbsToCompare.length === 0) { openAlertModal("Please select herbs to compare."); return; }
 
-    const properties = [ /* ... properties ... */ 
+    const properties = [ 
         { key: 'name', label: 'Herb Name' }, { key: 'preview', label: 'Preview' },
         { key: 'pacify', label: 'Pacify Dosha' }, { key: 'aggravate', label: 'Aggravate Dosha' },
         { key: 'tridosha', label: 'Balance Tridosha' }, { key: 'rasa', label: 'Rasa' },
@@ -187,9 +190,9 @@ function openCompareModal() {
     compareModal.classList.add('show');
     
 }
-function closeCompareModal() { 
-    const modal = document.getElementById('compareModal'); 
-    if (modal) modal.classList.remove('show'); 
+function closeCompareModal() {  
+    const modal = document.getElementById('compareModal');  
+    if (modal) modal.classList.remove('show');  
      if (!document.querySelector('.modal-backdrop.show')) {
          document.body.classList.remove('modal-open');
      }
@@ -197,19 +200,26 @@ function closeCompareModal() {
 function clearComparisonSelection() { compareSelection.clear(); document.querySelectorAll('.compare-checkbox').forEach(cb => cb.checked = false); updateCompareTray(); }
 
 // --- STANDARD MODALS (Suggestion, Request, Alert) ---
+
+// These global variables will be populated by setupAppModals()
+let openSuggestionModal = () => console.error("Modals not initialized");
+let closeSuggestionModal = () => console.error("Modals not initialized");
+let openRequestModal = () => console.error("Modals not initialized");
+let closeRequestModal = () => console.error("Modals not initialized");
+
 function setupModal(modalId, formId, successId, formAction) {
     const modal = document.getElementById(modalId);
     const formContent = document.getElementById(`${formId}-content`);
     const successMsg = document.getElementById(successId);
     const form = document.getElementById(formId);
-    if (!modal || !form || !formContent || !successMsg) { 
+    if (!modal || !form || !formContent || !successMsg) {  
         console.error("Modal setup failed for:", modalId);
-        return { openModal: ()=>{ console.error("Cannot open modal:", modalId)}, closeModal: ()=>{}, handleSubmit: ()=>{} }; 
+        return { openModal: ()=>{ console.error("Cannot open modal:", modalId)}, closeModal: ()=>{}, handleSubmit: ()=>{} };  
     }
 
     function openModal(context = null) {
-        closeAllModals(modalId); 
-        document.body.classList.add('modal-open'); 
+        closeAllModals(modalId);  
+        document.body.classList.add('modal-open');  
 
         if (context && modalId === 'suggestionModal') {
             modal.querySelector('#modal-herb-name').value = context;
@@ -220,8 +230,8 @@ function setupModal(modalId, formId, successId, formAction) {
         form.reset();
         modal.classList.add('show');
     }
-    function closeModal() { 
-        if (modal) modal.classList.remove('show'); 
+    function closeModal() {  
+        if (modal) modal.classList.remove('show');  
         if (!document.querySelector('.modal-backdrop.show')) {
             document.body.classList.remove('modal-open');
         }
@@ -250,33 +260,15 @@ function setupModal(modalId, formId, successId, formAction) {
      }
 
 
-    return { openModal, closeModal }; 
+    return { openModal, closeModal };  
 }
 
-// Helper to close all modals except the filter sidebar AND optionally one other
-function closeAllModals(excludeId = null) {
-    let anyModalOpen = false;
-    ['suggestionModal', 'requestModal', 'compareModal', 'alertModal', 'herbDetailModal'].forEach(id => {
-        if (id !== excludeId) {
-            const modal = document.getElementById(id);
-            if (modal && modal.classList.contains('show')) {
-                 modal.classList.remove('show');
-            }
-        } else if (document.getElementById(id)?.classList.contains('show')) {
-            anyModalOpen = true; 
-        }
-    });
-    if (!anyModalOpen) {
-        document.body.classList.remove('modal-open');
-    }
-}
-
-
-// Initialize modals after DOM content is loaded
-let openSuggestionModal, closeSuggestionModal, openRequestModal, closeRequestModal;
-document.addEventListener('DOMContentLoaded', () => {
+// NEW FUNCTION: This is called by index.html to set up the app's modals
+function setupAppModals() {
     const suggestion = setupModal('suggestionModal', 'suggestionForm', 'suggestionSuccessMessage', 'https://formspree.io/f/xzzjgkoe');
     const request = setupModal('requestModal', 'requestForm', 'requestSuccessMessage', 'https://formspree.io/f/movkwpze');
+    
+    // Assign the functions so they can be called globally
     openSuggestionModal = suggestion.openModal;
     closeSuggestionModal = suggestion.closeModal;
     openRequestModal = request.openModal;
@@ -295,9 +287,25 @@ document.addEventListener('DOMContentLoaded', () => {
            closeAllModals(); 
         }
     });
+}
 
-});
-
+// Helper to close all modals
+function closeAllModals(excludeId = null) {
+    let anyModalOpen = false;
+    ['suggestionModal', 'requestModal', 'compareModal', 'alertModal', 'herbDetailModal'].forEach(id => {
+        if (id !== excludeId) {
+            const modal = document.getElementById(id);
+            if (modal && modal.classList.contains('show')) {
+                 modal.classList.remove('show');
+            }
+        } else if (document.getElementById(id)?.classList.contains('show')) {
+            anyModalOpen = true;  
+        }
+    });
+    if (!anyModalOpen) {
+        document.body.classList.remove('modal-open');
+    }
+}
 
 function openAlertModal(message) {
     closeAllModals('alertModal'); 
@@ -335,10 +343,15 @@ function openHerbDetailModal(herbName) {
      const herb = allHerbs.find(h => h && h.name === herbName);
      if (!herb) return;
 
+     const modal = document.getElementById('herbDetailModal');
+     if (!modal) { // SAFE CHECK
+         console.error("Cannot open herb detail: modal element not found.");
+         return; 
+     }
+
      closeAllModals('herbDetailModal'); 
      document.body.classList.add('modal-open'); 
 
-     const modal = document.getElementById('herbDetailModal');
      const titleEl = document.getElementById('herbModalTitle');
      const previewEl = document.getElementById('herbModalPreview');
      const propsEl = document.getElementById('herbModalProperties');
@@ -354,17 +367,17 @@ function openHerbDetailModal(herbName) {
          if (key === 'tridosha') value = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : 'N/A';
          else if (Array.isArray(value)) value = value.join(', ');
          const displayValue = (value !== null && typeof value !== 'undefined' && value !== '') ? value : 'N/A';
-         const label = key.charAt(0).toUpperCase() + key.slice(1); 
+         const label = key.charAt(0).toUpperCase() + key.slice(1);  
          return `<b>${label}:</b> <span>${displayValue}</span><br>`;
      }).join('');
      
      const safeName = herbName.replace(/'/g, "\\'");
      const link = herb.link || '#';
      const exploreButtonHtml = finishedHerbLinks.has(link)
-      ? `<a href="${link}" class="btn btn-primary explore-btn" data-herb-name="${safeName}" onclick="event.stopPropagation()">Explore Herb</a>`
+      ? `<a href="${link}" class="btn btn-primary explore-btn" data-herb-name="${safeName}" onclick="if(event) event.stopPropagation()">Explore Herb</a>`
       : `<button type="button" class="btn btn-coming-soon" data-herb-name="${safeName}" disabled>Coming Soon</button>`;
      
-     const suggestButtonHtml = `<button type="button" class="btn btn-secondary suggest-btn" data-herb-name="${safeName}" onclick="event.stopPropagation(); openSuggestionModal('${safeName}');">Suggest Edit</button>`;
+     const suggestButtonHtml = `<button type="button" class="btn btn-secondary suggest-btn" data-herb-name="${safeName}" onclick="if(event) event.stopPropagation(); openSuggestionModal('${safeName}');">Suggest Edit</button>`;
      
      const isCompared = compareSelection.has(herbName);
      const compareChecked = isCompared ? 'checked' : '';
@@ -392,7 +405,7 @@ function getChecked(cls) { return [...document.querySelectorAll(`.${cls}:checked
 function updateFilterButtonStates() {
     try {
         const allFilters = document.querySelectorAll('#allFiltersContent .filter-content-body input[type=checkbox]:checked');
-        const sortValue = getSortValue(); 
+        const sortValue = getSortValue();  
         const favCheckbox = document.getElementById('favoritesFilter');
         const filterBtn = document.getElementById('mobileFilterBtn');
         const isFilterActive = allFilters.length > 0 || sortValue !== 'default' || (favCheckbox && favCheckbox.checked);
@@ -401,7 +414,7 @@ function updateFilterButtonStates() {
 }
 
 function getSortValue() {
-    if (window.innerWidth < 769) {
+    if (typeof window !== 'undefined' && window.innerWidth < 769) {
         const checkedRadio = document.querySelector('input[name="sortMobile"]:checked');
         return checkedRadio ? checkedRadio.value : 'default';
     } else {
@@ -429,8 +442,8 @@ function matchesFilters(h) {
            const herbValue = h[key];
            if (Array.isArray(herbValue)) { if (!filters[key].every(v => herbValue.includes(v))) return false; }
            else if (typeof herbValue === 'string') { if (!filters[key].includes(herbValue)) return false; }
-           else if (herbValue === null || typeof herbValue === 'undefined') { return false; } 
-           else { return false; } 
+           else if (herbValue === null || typeof herbValue === 'undefined') { return false; }  
+           else { return false; }  
        }
    }
    return true;
@@ -453,18 +466,18 @@ function renderHerbs() {
         return;
   }
 
-  herbsPerPage = getHerbsPerPage(); 
+  herbsPerPage = getHerbsPerPage();  
 
   const filtered = allHerbs.filter(matchesFilters);
-  const sortValue = getSortValue(); 
+  const sortValue = getSortValue();  
   if (sortValue === 'name-asc') filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
   else if (sortValue === 'name-desc') filtered.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
 
   const totalHerbs = filtered.length;
-  const totalPages = Math.ceil(totalHerbs / herbsPerPage); 
+  const totalPages = Math.ceil(totalHerbs / herbsPerPage);  
   currentPage = Math.max(1, Math.min(currentPage, totalPages || 1));
-  const startIndex = (currentPage - 1) * herbsPerPage; 
-  const endIndex = startIndex + herbsPerPage; 
+  const startIndex = (currentPage - 1) * herbsPerPage;  
+  const endIndex = startIndex + herbsPerPage;  
   const visible = filtered.slice(startIndex, endIndex);
 
   herbCountBox.innerText = `Showing ${visible.length} of ${totalHerbs} herbs`;
@@ -473,7 +486,7 @@ function renderHerbs() {
   if (showResultsBtn) showResultsBtn.textContent = `Show ${totalHerbs} Result${totalHerbs !== 1 ? 's' : ''}`;
   
   const statsTotalEl = document.getElementById('stats-total-herbs');
-  if (statsTotalEl && allHerbs.length > 0) statsTotalEl.textContent = allHerbs.length; 
+  if (statsTotalEl && allHerbs.length > 0) statsTotalEl.textContent = allHerbs.length;  
 
   if (visible.length === 0) {
         grid.innerHTML = `<div class="no-results-message">No herbs match filters.</div>`;
@@ -484,12 +497,12 @@ function renderHerbs() {
           const safeName = name.replace(/'/g, "\\'");
           const isFavorite = favorites.has(name);
           const favoriteButtonHtml = `
-            <button class="fav-btn ${isFavorite ? 'is-favorite' : ''}" data-herb-name="${safeName}" aria-label="Toggle Favorite"> 
-               <svg class="heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <button class="fav-btn ${isFavorite ? 'is-favorite' : ''}" data-herb-name="${safeName}" aria-label="Toggle Favorite">  
+                <svg class="heart-icon" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
             </button>`;
         
         return `
-         <div class="herb-card" data-herb-name="${safeName}"> 
+         <div class="herb-card" data-herb-name="${safeName}">  
            ${favoriteButtonHtml}
            <div class="herb-header"><h3>${name}</h3><p>${preview}</p></div>
          </div>`;
@@ -511,40 +524,43 @@ function updatePaginationControls(totalPages) {
     nextBtn.disabled = (currentPage >= totalPages || totalPages === 0);
 }
 
-function goToPrevPage() { 
-    if (currentPage > 1) { 
-        currentPage--; 
-        renderHerbs(); 
-        document.getElementById('topControls')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
-    } 
+function goToPrevPage() {  
+    if (currentPage > 1) {  
+        currentPage--;  
+        renderHerbs();  
+        document.getElementById('topControls')?.scrollIntoView({ behavior: 'smooth', block: 'start' });  
+    }  
 }
 function goToNextPage() {
     if (!Array.isArray(allHerbs)) return;
-    herbsPerPage = getHerbsPerPage(); 
+    herbsPerPage = getHerbsPerPage();  
     const filteredCount = allHerbs.filter(matchesFilters).length;
     const totalPages = Math.ceil(filteredCount / herbsPerPage);
-    if (currentPage < totalPages) { 
-        currentPage++; 
-        renderHerbs(); 
-        document.getElementById('topControls')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+    if (currentPage < totalPages) {  
+        currentPage++;  
+        renderHerbs();  
+        document.getElementById('topControls')?.scrollIntoView({ behavior: 'smooth', block: 'start' });  
     }
 }
 
 
 // --- INITIALIZATION ---
 function initializeApp() {
-    herbsPerPage = getHerbsPerPage(); 
-    renderHerbs(); 
-    updateCompareTray();
+    herbsPerPage = getHerbsPerPage();  
+    renderHerbs();  
+    updateCompareTray(); // This is now safe
 
     const searchInput = document.getElementById("searchInput");
-    const filterControls = document.querySelectorAll('.filter-content input, .filter-content select, input[name="sortMobile"]'); 
-    const herbGrid = document.getElementById('herbGrid'); 
+    const filterControls = document.querySelectorAll('.filter-content input, .filter-content select, input[name="sortMobile"]');  
+    const herbGrid = document.getElementById('herbGrid');  
 
     if (searchInput) {
         searchInput.addEventListener("input", debounce(() => { currentPage = 1; renderHerbs(); }, 300));
     }
-    filterControls.forEach(el => el.addEventListener("change", () => { currentPage = 1; renderHerbs(); }));
+    
+    if (filterControls && filterControls.length > 0) {
+        filterControls.forEach(el => el.addEventListener("change", () => { currentPage = 1; renderHerbs(); }));
+    }
 
     const sortSelect = document.getElementById('sortSelect');
     if (sortSelect) {
@@ -554,56 +570,61 @@ function initializeApp() {
             });
         });
     }
-     document.querySelectorAll('input[name="sortMobile"]').forEach(radio => {
-         radio.addEventListener('change', (e) => {
-             if (e.target.checked && sortSelect) { sortSelect.value = e.target.value; }
+    
+    const mobileSortRadios = document.querySelectorAll('input[name="sortMobile"]');
+    if (mobileSortRadios && mobileSortRadios.length > 0) {
+         document.querySelectorAll('input[name="sortMobile"]').forEach(radio => {
+             radio.addEventListener('change', (e) => {
+                 if (e.target.checked && sortSelect) { sortSelect.value = e.target.value; }
+             });
          });
-     });
+    }
 
     if (herbGrid) {
         herbGrid.addEventListener('click', (event) => {
             const card = event.target.closest('.herb-card');
-            if (!card) return; 
+            if (!card) return;  
 
             const herbName = card.dataset.herbName;
-            if (!herbName) return; 
+            if (!herbName) return;  
 
             const favButton = event.target.closest('.fav-btn');
             if (favButton) {
-                toggleFavorite(herbName, favButton); 
+                toggleFavorite(herbName, favButton);  
             } else {
                 openHerbDetailModal(herbName);
             }
         });
     }
     
-    window.addEventListener('resize', debounce(() => {
-        const newHerbsPerPage = getHerbsPerPage();
-        if (newHerbsPerPage !== herbsPerPage) {
-            herbsPerPage = newHerbsPerPage;
-            currentPage = 1; 
-            renderHerbs();
-        }
-    }, 300));
-
+    if (typeof window !== 'undefined') {
+        window.addEventListener('resize', debounce(() => {
+            const newHerbsPerPage = getHerbsPerPage();
+            if (newHerbsPerPage !== herbsPerPage) {
+                herbsPerPage = newHerbsPerPage;
+                currentPage = 1;  
+                renderHerbs();
+            }
+        }, 300));
+    }
 }
 
 async function fetchHerbData() {
     const herbCountBox = document.getElementById("herbCountBox");
     const paginationControls = document.getElementById('paginationControls');
-    const statsTotalEl = document.getElementById('stats-total-herbs'); 
+    const statsTotalEl = document.getElementById('stats-total-herbs');  
 
     if (herbCountBox) herbCountBox.innerText = 'Loading Herb Database...';
     if (paginationControls) paginationControls.style.display = 'none';
-    if (statsTotalEl) statsTotalEl.textContent = 'Loading...'; 
+    if (statsTotalEl) statsTotalEl.textContent = 'Loading...';  
 
     try {
-        const response = await fetch(HERB_DATA_URL); 
+        const response = await fetch(HERB_DATA_URL);  
         if (!response.ok) throw new Error(`HTTP error ${response.status}`);
         const data = await response.json();
         if (!Array.isArray(data)) throw new Error("Invalid data format");
         allHerbs = data;
-        initializeApp(); 
+        initializeApp();  
     } catch (error) {
         console.error("CRITICAL ERROR fetching data:", error);
         if (herbCountBox) herbCountBox.innerText = `Error loading data. Please refresh.`;
@@ -612,4 +633,5 @@ async function fetchHerbData() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', fetchHerbData);
+// NO MORE addEventListener CALLS HERE.
+// This file is now a pure library.
