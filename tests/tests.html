@@ -16,91 +16,115 @@
         }
         .test-pass { background-color: #dff0d8; color: #3c763d; }
         .test-fail { background-color: #f2dede; color: #a94442; }
+        .test-suite {
+            background-color: #f0f0f0;
+            padding: 0 1rem 1rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+        .test-suite h3 {
+            padding-top: 1rem;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
 
     <h1>🌿 Ayurvedic Herb Explorer - Test Suite</h1>
     <p>
-        This page runs automated tests on the core logic of the application (e.g., `matchesFilters()`).
-        It loads the real `app.js` but feeds it a small, predictable set of mock data to verify the filtering functions.
+        This page runs automated tests on the core logic of the application (e.g., `matchesFilters()`, `toggleFavorite()`, `toggleCompare()`, pagination).
+        It loads the real `app.js` but feeds it a small, predictable set of mock data to verify the functions.
     </p>
 
     <!-- 
       This is a hidden, simplified mock of the app's HTML.
       It now includes all elements that app.js might look for.
     -->
-    <div id="allFiltersContent" style="display: none;">
-        <!-- *** THIS DIV WAS THE CAUSE OF THE "0 of 0" BUG *** -->
-        <div class="filter-content-body">
-            <input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/>
-            <input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/>
-            <input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/>
-            <input class="virya-filter" type="checkbox" value="Sheeta" id="f_virya_sheeta"/>
-            <input class="prabhav-filter" type="checkbox" value="Rasayan" id="f_prabhav_rasayan"/>
+    <div id="mock-app-container" style="display: none;">
+        <div id="allFiltersContent">
+            <div class="filter-content-body">
+                <input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/>
+                <input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/>
+                <input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/>
+                <input class="virya-filter" type="checkbox" value="Sheeta" id="f_virya_sheeta"/>
+                <input class="prabhav-filter" type="checkbox" value="Rasayan" id="f_prabhav_rasayan"/>
+            </div>
+            
+            <input id="searchInput" type="text" />
+            <select id="sortSelect">
+                <option value="default"></option>
+                <option value="name-asc"></option>
+                <option value="name-desc"></option>
+            </select>
+            <input id="favoritesFilter" type="checkbox" />
+            <input name="sortMobile" type="radio" value="default" checked />
+            <input name="sortMobile" type="radio" value="name-asc" />
+            <input name="sortMobile" type="radio" value="name-desc" />
         </div>
+
+        <!-- Main app elements -->
+        <div id="herbGrid"></div>
+        <div id="herbCountBox">Loading...</div>
         
-        <input id="searchInput" type="text" />
-        <select id="sortSelect">
-            <option value="default"></option>
-        </select>
-        <input id="favoritesFilter" type="checkbox" />
-        <input name="sortMobile" type="radio" value="default" checked />
-    </div>
-
-    <!-- Main app elements -->
-    <div id="herbGrid"></div>
-    <div id="herbCountBox">Loading...</div>
-    
-    <!-- Missing elements that app.js needs -->
-    <div id="compareTray" style="display: none;">
-      <span id="compareCount"></span>
-    </div>
-    <div id="paginationControls" style="display: none;">
-        <button id="prevPageBtn"></button>
-        <span id="pageInfo"></span>
-        <button id="nextPageBtn"></button>
-    </div>
-    <button id="showResultsBtn"></button>
-    <button id="mobileFilterBtn"></button>
-    <span id="stats-total-herbs"></span>
-
-    <!-- 
-      SKELETON MODALS
-      These are needed so app.js doesn't crash when trying to find them.
-    -->
-    <div id="suggestionModal" class="modal-backdrop"></div>
-    <div id="requestModal" class="modal-backdrop"></div>
-    <div id="compareModal" class="modal-backdrop"></div>
-    <div id="alertModal" class="modal-backdrop"></div>
-    
-    <div id="herbDetailModal" class="modal-backdrop">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 id="herbModalTitle"></h3>
-          <button type="button" class="modal-close-btn" onclick="closeHerbDetailModal()" aria-label="Close">×</button>
+        <!-- Missing elements that app.js needs -->
+        <div id="compareTray">
+          <span id="compareCount"></span>
         </div>
-        <p id="herbModalPreview"></p>
-        <div id="herbModalProperties"></div>
-        <div id="herbModalActions"></div>
-      </div>
+        <div id="paginationControls">
+            <button id="prevPageBtn"></button>
+            <span id="pageInfo"></span>
+            <button id="nextPageBtn"></button>
+        </div>
+        <button id="showResultsBtn"></button>
+        <button id="mobileFilterBtn"></button>
+        <span id="stats-total-herbs"></span>
+
+        <!-- 
+          SKELETON MODALS
+          These are needed so app.js doesn't crash when trying to find them.
+        -->
+        <div id="suggestionModal" class="modal-backdrop">
+            <div id="suggestionForm-content"><form id="suggestionForm"></form></div>
+            <div id="suggestionSuccessMessage"></div>
+        </div>
+        <div id="requestModal" class="modal-backdrop">
+            <div id="requestForm-content"><form id="requestForm"></form></div>
+            <div id="requestSuccessMessage"></div>
+        </div>
+        <div id="compareModal" class="modal-backdrop"><table id="compareTable"></table></div>
+        <div id="alertModal" class="modal-backdrop"><p id="alertModalMessage"></p></div>
+        
+        <div id="herbDetailModal" class="modal-backdrop">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 id="herbModalTitle"></h3>
+              <button type="button" class="modal-close-btn" aria-label="Close">×</button>
+            </div>
+            <p id="herbModalPreview"></p>
+            <div id="herbModalProperties"></div>
+            <div id="herbModalActions"></div>
+          </div>
+        </div>
     </div>
 
 
     <!-- Test Results -->
     <hr style="margin: 2rem 0;">
     <h2>Test Results</h2>
-    <button id="runTestsBtn" class="btn btn-primary">Run Tests</button>
-    <ul id="testResultsList" class="test-results" style="margin-top: 1.5rem;"></ul>
+    <button id="runTestsBtn" class="btn btn-primary">Run All Tests</button>
+    <ul id="testResultsList" class="test-results" style="margin-top: 1.5rem;">
+        <!-- Results will be injected here -->
+    </ul>
 
     <!-- 
       IMPORTANT:
-      1. We load the REAL application script (it will do nothing).
+      1. We load the REAL application script (it will do nothing yet).
       2. We load our NEW test script (it will control everything).
       3. We DO NOT load main.js
     -->
-    <script src="../assets/js/app.js" defer></script>
-    <script src="tests.js" defer></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="tests.js"></script>
 
 </body>
 </html>
