@@ -122,17 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Override
         window.fetchHerbData = async () => {
             console.log("TESTING: Overriding fetchHerbData with mock data.");
+            
+            // *** THIS IS THE FIX ***
+            // Load mock data FIRST
             allHerbs = mockHerbs; // Use our mock data
             
-            // Initialize the app with our mock elements
+            // Initialize the app SECOND
             // This is safe now because of our fixes.
             initializeApp(); 
             
-            // Now that the app is initialized with mock data, run the tests
-            // We run renderHerbs() once more to ensure filters are applied
-            // before the first test.
+            // Run render THIRD to update the UI
             renderHerbs();
             
+            // Now that the app is initialized with mock data, run the tests
             test_Search();
             test_Filter_Rasa();
             test_Filter_Virya();
