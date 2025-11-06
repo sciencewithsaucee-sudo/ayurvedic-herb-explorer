@@ -3,7 +3,12 @@ const HERB_DATA_URL = 'https://raw.githubusercontent.com/sciencewithsaucee-sudo/
 
 // --- Whitelist for Explore Links ---
 const finishedHerbLinks = new Set([
-  "/p/tulsi.html", "/p/amla.html", "/p/ashwagandha.html", "/p/giloy.html", "/p/shatavari.html",
+  "https://www.amidhaayurveda.com/p/tulsi.html",
+  "https://www.amidhaayurveda.com/p/tulsi.html",
+  "https://www.amidhaayurveda.com/p/amla.html",
+  "https://www.amidhaayurveda.com/p/ashwagandha.html",
+  "https://www.amidhaayurveda.com/p/giloy.html",
+  "https://www.amidhaayurveda.com/p/shatavari.html",
   "https://www.amidhaayurveda.com/2025/10/chopchini-ayurvedic-uses-benefits.html",
   "https://www.amidhaayurveda.com/2025/10/bhringraj-ayurvedic-uses-benefits.html",
   "https://www.amidhaayurveda.com/2025/10/jatamansi-ayurvedic-uses-benefits.html",
