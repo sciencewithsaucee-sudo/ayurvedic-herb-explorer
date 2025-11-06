@@ -13,7 +13,7 @@ This is an interactive web-based tool for students, researchers, and developers 
 
 ## 🌟 Key Features
 
-* **Dynamic Data Interface:** Loads the 700+ herb dataset directly from the [source JSON](httpsa://raw.githubusercontent.com/sciencewithsaucee-sudo/herb-database/refs/heads/main/herb.json).
+* **Dynamic Data Interface:** Loads the 700+ herb dataset directly from the [source JSON](https://raw.githubusercontent.com/sciencewithsaucee-sudo/herb-database/refs/heads/main/herb.json).
 * **Advanced Multi-Filter:** A "Research Mode" panel to perform complex queries by combining filters for Rasa, Guna, Virya, Vipaka, Dosha Karma, and Prabhava.
 * **Herb Comparison Tool:** Select up to 3 herbs and generate a dynamic comparison table of all their properties.
 * **Favorites System:** "Favorite" herbs and save them to your browser's local storage for future reference.
