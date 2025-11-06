@@ -30,18 +30,22 @@
       This is a hidden, simplified mock of the app's HTML.
       It now includes all elements that app.js might look for.
     -->
-    <div class="filter-content" style="display: none;">
-        <input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/>
-        <input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/>
-        <input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/>
-        <input class="virya-filter" type="checkbox" value="Sheeta" id="f_virya_sheeta"/>
-        <input class="prabhav-filter" type="checkbox" value="Rasayan" id="f_prabhav_rasayan"/>
+    <div id="allFiltersContent" style="display: none;">
+        <!-- *** THIS DIV WAS THE CAUSE OF THE "0 of 0" BUG *** -->
+        <div class="filter-content-body">
+            <input class="rasa-filter" type="checkbox" value="Tikta" id="f_rasa_tikta"/>
+            <input class="rasa-filter" type="checkbox" value="Katu" id="f_rasa_katu"/>
+            <input class="virya-filter" type="checkbox" value="Ushna" id="f_virya_ushna"/>
+            <input class="virya-filter" type="checkbox" value="Sheeta" id="f_virya_sheeta"/>
+            <input class="prabhav-filter" type="checkbox" value="Rasayan" id="f_prabhav_rasayan"/>
+        </div>
+        
         <input id="searchInput" type="text" />
         <select id="sortSelect">
             <option value="default"></option>
         </select>
         <input id="favoritesFilter" type="checkbox" />
-        <input name="sortMobile" type="radio" value="default" />
+        <input name="sortMobile" type="radio" value="default" checked />
     </div>
 
     <!-- Main app elements -->
@@ -70,7 +74,6 @@
     <div id="compareModal" class="modal-backdrop"></div>
     <div id="alertModal" class="modal-backdrop"></div>
     
-    <!-- This is the one that was causing the freeze -->
     <div id="herbDetailModal" class="modal-backdrop">
       <div class="modal-content">
         <div class="modal-header">
@@ -94,9 +97,10 @@
       IMPORTANT:
       1. We load the REAL application script (it will do nothing).
       2. We load our NEW test script (it will control everything).
+      3. We DO NOT load main.js
     -->
-    <script src="../assets/js/app.js"></script>
-    <script src="tests.js"></script>
+    <script src="../assets/js/app.js" defer></script>
+    <script src="tests.js" defer></script>
 
 </body>
 </html>
