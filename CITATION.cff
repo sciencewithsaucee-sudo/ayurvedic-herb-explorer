@@ -8,11 +8,7 @@ authors:
     orcid: "https://orcid.org/0009-0004-7835-0673"
     affiliation: "Amidha Ayurveda – Digital Ayurveda Research Initiative"
     
-# --- IMPORTANT ---
-# After you archive this repository with Zenodo, 
-# replace YOUR_NEW_DOI with the DOI you receive.
-doi: 10.5281/zenodo.YOUR_NEW_DOI 
-
+doi: 10.5281/zenodo.17553999
 version: "1.0.0"
 date-released: 2025-11-07
 license: "MIT"
