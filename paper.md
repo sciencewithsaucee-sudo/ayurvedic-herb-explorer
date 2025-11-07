@@ -1,12 +1,13 @@
 ---
-title: 'Ayurvedic Herb Explorer: Enabling Data-Driven Research in Dravyaguna (Ayurvedic Pharmacology)'
+title: "Ayurvedic Herb Explorer: An Open-Source Platform for Data-Driven Research in Dravyaguna (Ayurvedic Pharmacology)"
 authors:
   - name: Sparsh Varshney
     orcid: 0009-0004-7835-0673
     affiliation: 1
 affiliations:
- - name: Amidha Ayurveda
+ - name: Amidha Ayurveda – Digital Ayurveda Research Initiative
    index: 1
+date: 2025-11-07
 keywords:
   - Ayurveda
   - Digital Humanities
@@ -19,18 +20,22 @@ bibliography: paper.bib
 
 # Summary
 
-The 'Ayurvedic Herb Explorer' is an open-source, interactive web application designed to make classical Ayurvedic pharmacology accessible and explorable for modern researchers, students, and practitioners. The software provides a clean, responsive, and powerful interface to search, filter, and compare over 700 herbs from the *Amidha Ayurveda Open Herb Database* [@varshney_sparsh_2025_herb_database]. Users can perform complex queries based on classical properties (Rasa, Guna, Virya, Vipaka, Dosha Karma, and Prabhava), save favorites, and compare herbs side-by-side. Built as a standalone JavaScript, HTML, and CSS application, it runs entirely in the browser without requiring any backend or installation, ensuring maximum accessibility and ease of use.
+The *Ayurvedic Herb Explorer* is an open-source, browser-based application that enables interactive exploration of classical Ayurvedic pharmacological data. It provides a clean and responsive interface to search, filter, and compare over 700 herbs from the *Amidha Ayurveda Open Herb Database* [@varshney_sparsh_2025_herb_database]. Users can perform complex queries based on classical properties such as Rasa (taste), Guna (qualities), Virya (potency), Vipaka (post-digestive effect), Dosha Karma (dosha effect), and Prabhava (specific action).  
+
+Built entirely with lightweight JavaScript, HTML, and CSS, the application requires no installation or backend server, making it fully portable and reproducible. The tool’s goal is to make Ayurvedic data easily explorable, comparable, and citable for students, educators, and researchers in the field of Dravyaguna (Ayurvedic Pharmacology).
 
 # Statement of Need
 
-Classical Ayurvedic knowledge, particularly the properties of medicinal herbs (Dravyaguna), is vast but often siloed within texts or fragmented across proprietary, non-standardized digital formats. This creates a significant barrier for computational research, education, and comparative analysis. While open-source datasets like the *Amidha Ayurveda Open Herb Database* [@varshney_sparsh_2025_herb_database] have begun to standardize this knowledge, there has been a lack of accessible, citable, and open-source *tools* to interact with this data.
+Classical Ayurvedic knowledge, particularly concerning medicinal herbs (Dravyaguna), is vast but largely distributed across textual sources and non-standardized digital repositories. This fragmentation limits reproducibility, data integration, and cross-disciplinary analysis. While open-source datasets such as the *Amidha Ayurveda Open Herb Database* [@varshney_sparsh_2025_herb_database] have begun to standardize this knowledge, there has been a lack of accessible, testable, and citable *tools* to interact with these datasets.  
 
-The 'Ayurvedic Herb Explorer' directly addresses this gap. It serves as the primary, user-friendly interface for this dataset, enabling researchers to answer complex questions (e.g., "List all herbs with Tikta (Bitter) Rasa and Sheeta (Cooling) Virya that pacify the Pitta dosha") in seconds.
+Recent work in **evidence-based and data-driven Ayurveda** emphasizes the need for computationally accessible frameworks that bridge classical Ayurvedic principles with modern scientific methods [@patwardhan2014]. The *Ayurvedic Herb Explorer* addresses this challenge by serving as a user-friendly interface for querying, filtering, and visualizing Ayurvedic herb data. It allows researchers to answer questions such as:  
 
-This software is part of a larger ecosystem of open-source tools for Digital Ayurveda, alongside projects like *Shloka AI* [@varshney_shloka_ai] and *Siddhant Kosha* [@varshney_siddhant_kosha]. By providing a testable, citable, and extensible tool for exploring herb properties, the 'Ayurvedic Herb Explorer' aims to lower the barrier to entry for digital research in Ayurveda and support a more open, reproducible, and data-driven approach to the field.
+> “List all herbs with *Tikta* (Bitter) Rasa and *Sheeta* (Cooling) Virya that pacify the *Pitta* dosha.”
+
+This software is part of the broader *Amidha Ayurveda Open Research Ecosystem*, which includes projects such as *ShlokaAI* [@varshney_shloka_ai] and *Siddhanta Kosha* [@varshney_siddhant_kosha]. By providing a citable, open-source, and extensible tool for exploring herb properties, *Ayurvedic Herb Explorer* aims to advance the development of reproducible, data-driven research methodologies in Ayurveda.
 
 # Acknowledgements
 
-We acknowledge the contributions from the open-source community and the valuable feedback from early users and reviewers which helped improve this software.
+The author acknowledges the open-source community and early users of the *Amidha Ayurveda* platform for valuable feedback and testing support that contributed to improving this software.
 
 # References
