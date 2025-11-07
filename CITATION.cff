@@ -1,12 +1,12 @@
 cff-version: 1.2.0
 message: "If you use this software in your research, please cite it using the metadata below."
-title: "Ayurvedic Herb Explorer: Enabling Data-Driven Research in Dravyaguna (Ayurvedic Pharmacology)"
+title: "Ayurvedic Herb Explorer: An Open-Source Platform for Data-Driven Research in Dravyaguna (Ayurvedic Pharmacology)"
 type: software
 authors:
   - family-names: "Varshney"
     given-names: "Sparsh"
     orcid: "https://orcid.org/0009-0004-7835-0673"
-    affiliation: "Amidha Ayurveda"
+    affiliation: "Amidha Ayurveda – Digital Ayurveda Research Initiative"
     
 # --- IMPORTANT ---
 # After you archive this repository with Zenodo, 
@@ -14,7 +14,7 @@ authors:
 doi: 10.5281/zenodo.YOUR_NEW_DOI 
 
 version: "1.0.0"
-date-released: 2025-11-06
+date-released: 2025-11-07
 license: "MIT"
 keywords:
   - "Ayurveda"
@@ -27,6 +27,18 @@ repository-code: "https://github.com/sciencewithsaucee-sudo/ayurvedic-herb-explo
 
 # This section links this software to the data/other software it depends on or relates to.
 references:
+  - type: article
+    title: "Bridging Ayurveda with evidence-based scientific approaches in medicine"
+    authors:
+      - family-names: "Patwardhan"
+        given-names: "Bhushan"
+    doi: "10.1186/1878-5085-5-19"
+    journal: "EPMA Journal"
+    year: 2014
+    volume: 5
+    issue: 1
+    pages: 19
+    
   - type: dataset
     title: "🌿 Amidha Ayurveda Herb Database (Beta)"
     authors:
