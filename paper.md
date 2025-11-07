@@ -34,6 +34,14 @@ Recent work in **evidence-based and data-driven Ayurveda** emphasizes the need f
 
 This software is part of the broader *Amidha Ayurveda Open Research Ecosystem*, which includes projects such as *ShlokaAI* [@varshney_shloka_ai] and *Siddhanta Kosha* [@varshney_siddhant_kosha]. By providing a citable, open-source, and extensible tool for exploring herb properties, *Ayurvedic Herb Explorer* aims to advance the development of reproducible, data-driven research methodologies in Ayurveda.
 
+# Implementation and Testability
+
+The *Ayurvedic Herb Explorer* is a standalone client-side application built with HTML5, CSS3, and modern JavaScript (ES6+). It intentionally avoids any backend dependencies or build steps, ensuring maximum portability, reproducibility, and ease of use. A user can run the software locally by simply opening the `index.html` file in any modern browser.
+
+The architecture is modular, separating structure (`index.html`), styling (`assets/css/style.css`), and logic. The core application logic—including data fetching, filtering, state management, and UI rendering—is contained in `assets/js/app.js`, which is activated by the `assets/js/main.js` entry point. This separation demonstrates a substantial software effort beyond a simple static page.
+
+To ensure correctness and facilitate JOSS review, the repository includes a full automated test suite (`tests/tests.js`). Reviewers can verify all core functionality (filtering, pagination, favorites, and comparison logic) by opening the `tests/tests.html` file in a browser and observing the passing tests.
+
 # Acknowledgements
 
 The author acknowledges the open-source community and early users of the *Amidha Ayurveda* platform for valuable feedback and testing support that contributed to improving this software.
