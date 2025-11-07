@@ -31,13 +31,15 @@ This is an interactive web-based tool for students, researchers, and developers 
 This is a standalone web application. You can either use the live tool or run it locally.
 
 🔗 **Live Tool:** [**https://sciencewithsaucee-sudo.github.io/ayurvedic-herb-explorer/**](https://sciencewithsaucee-sudo.github.io/ayurvedic-herb-explorer/)
-*(Note: You will need to enable GitHub Pages in your repository settings for this link to work.)*
 
 ### **Local Use**
 
 1. Download or clone this repository.  
 2. Open the `index.html` file in any modern web browser (like Chrome, Firefox, or Edge).  
 3. The application will automatically fetch the latest herb data and run.
+
+> 💡 **Note:** An active internet connection is required on first load to fetch the live herb database from GitHub.  
+> Once loaded, all filtering and searching operations are processed **offline in your browser**.
 
 ---
 
