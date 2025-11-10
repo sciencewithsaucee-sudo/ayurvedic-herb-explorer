@@ -34,6 +34,12 @@ Recent work in **evidence-based and data-driven Ayurveda** emphasizes the need f
 
 This software is part of the broader *Amidha Ayurveda Open Research Ecosystem*, which includes projects such as *ShlokaAI* [@varshney_shloka_ai] and *Siddhanta Kosha* [@varshney_siddhant_kosha]. By providing a citable, open-source, and extensible tool for exploring herb properties, *Ayurvedic Herb Explorer* aims to advance the development of reproducible, data-driven research methodologies in Ayurveda.
 
+# Figures
+![Interface of Ayurvedic Herb Explorer showing dynamic herb filtering and comparison dashboard.\label{fig:dashboard}](ayurvedic-herb-explorer-dashboard.png)
+
+*Figure 1:* The Ayurvedic Herb Explorer user interface.  
+The tool allows researchers to dynamically filter, search, mark favorite and compare 700+ Ayurvedic herbs based on their classical pharmacological properties such as Rasa, Guna, Virya, Vipaka, and Prabhava.
+
 # Implementation and Testability
 
 The *Ayurvedic Herb Explorer* is a standalone client-side application built with HTML5, CSS3, and modern JavaScript (ES6+). It intentionally avoids any backend dependencies or build steps, ensuring maximum portability, reproducibility, and ease of use. A user can run the software locally by simply opening the `index.html` file in any modern browser.
